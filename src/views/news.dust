@@ -1,0 +1,165 @@
+{>"layout" /}
+
+<script src="/js/deleteAjax.js"></script>
+
+{<heading}
+<h1>News</h1>
+<a class="pull-right" href="/news/addNews">
+    <button class="btn btn-primary"><i class="fas fa-plus"></i> Add News</button>
+</a>
+{/heading}
+
+<style>
+    #date
+    {
+        color: #696969;
+        font-size: 12px;
+    }
+
+    .sub-menu{
+        list-style: none;
+    }
+
+    .sub-menu a{
+        color: #2c723e;
+    }
+
+    .sub-menu a:hover{
+        color: black;
+    }
+
+    .sub-menu li{
+        display: inline;
+        margin: 0 5px;
+        font-size: 150%;
+    }
+
+    #news-heading{
+        font-size: 24px;
+        font-weight: bold;
+        margin: 20px 0;
+        padding: 30px 20px;
+    }
+
+    textarea{
+        text-align: justify;
+    }
+
+    .news-list{
+        height: 500px;
+        overflow: auto;
+    }
+
+    .news-list li a{
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+{<information}
+
+{?status}
+    <div class="row">
+        <div class="col-xs-8">
+
+            <input id="id" type="hidden" value="{news.id}" name="id"/>
+            <input id="date" type="hidden" value="{news.Date}" name="Date"/>
+
+            <span id="showDate">{news.Date}</span>
+
+            <ul class="sub-menu pull-right">
+                <a onclick="enableContents()"><li><i class="far fa-edit"></i></li></a>
+                <a onclick="deleteUtils('/news/deleteNews/{news.id}', deleteNews, deleteError)"><li><i class="far fa-trash-alt"></i></li></a>
+            </ul>
+
+            <input id="news-heading" type="text" class="form-control" name="Title" value="{news.Title}" disabled>
+
+            <textarea rows="20" id="news-content" class="form-control" name="Content" disabled>{news.Content}</textarea>
+
+            <div class="form-group" style="margin: 3% auto;">
+                <div class="pull-right">
+                    <button type="submit" id="updateButton" style="display:none" class="btn btn-primary"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Update News
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-4">
+            <ul id="headings" class="nav nav-pills nav-stacked news-list">
+                {#newsList}
+                    <li onclick="displayNews({id})" id="list{id}"><a class="news-headings" href="">{Title}</a></li>
+                {/newsList}
+            </ul>
+        </div>
+
+
+        <script>
+            let activeId = document.getElementById('id').value;
+            document.getElementById('list'+activeId).classList.add("active");
+        </script>
+
+    </div>
+{/status}
+{/information}
+
+<script>
+
+    function enableContents(){
+        document.getElementById('news-heading').disabled = false ;
+        document.getElementById('news-content').disabled = false;
+        document.getElementById('updateButton').style.display = 'block';
+    }
+
+    document.getElementById("updateButton").addEventListener("click", function(event){
+        event.preventDefault();
+        let formData = {};
+        formData.id = document.getElementById('id').value;
+        formData.Title = document.getElementById('news-heading').value;
+        formData.Content = document.getElementById('news-content').value;
+        let url = '/news/updateNews';
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            dataType: 'json',
+            data: formData,
+            success: function (data) {
+                window.location.href='/news';
+            }
+        });
+    });
+
+    document.getElementById("headings").addEventListener("click", function(event) {
+        event.preventDefault();
+    });
+
+    function displayNews(id) {
+        let newsUrl = '/news/getOneNews/'+id;
+        $.ajax({
+            url: newsUrl,
+            type: 'GET',
+            dataType: 'JSON',
+            success : function (response) {
+                let news = response.news;
+
+                document.getElementById('id').value = news.id;
+                document.getElementById('date').value = news.Date;
+                document.getElementById('news-heading').value = news.Title;
+                document.getElementById('showDate').innerHTML = news.Date;
+                document.getElementById('news-content').innerHTML = news.Content;
+
+                document.getElementById('list'+activeId).classList.remove("active");
+
+                activeId = news.id;
+                document.getElementById('list'+activeId).classList.add("active");
+
+                document.getElementById('news-heading').disabled = true ;
+                document.getElementById('news-content').disabled = true;
+                document.getElementById('updateButton').style.display = 'none';
+            }
+        });
+    }
+
+</script>

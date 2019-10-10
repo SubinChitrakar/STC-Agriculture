@@ -1,0 +1,244 @@
+{>"layout" /}
+<script src="/js/tenderDetails.js"></script>
+<script src="/js/updateAjax.js"></script>
+<style>
+    h1 a {
+        color: black;
+    }
+
+    .edit-icon{
+        color: #2c723e;
+    }
+
+    .edit-icon:hover{
+        text-decoration: none;
+    }
+
+    .edit-icon:active {
+        text-decoration: none;
+    }
+</style>
+
+{<heading}
+<h1><a href="/tender"><i class="fas fa-arrow-circle-left"></i></a>
+    &nbsp; &nbsp; Tender No. : {tender.id}</h1>
+{/heading}
+
+
+{<information}
+<form role="form" id="updateTender"
+      onsubmit="return updateUtils(this, updateTenderSuccess)" action="/tender/submitUpdatedTender"
+      class="form-horizontal">
+    <div class="container-fluid">
+        <div class="col-xs-12">
+            <div class="col-xs-12 form-group">
+                <a id="editButton" class="pull-right edit-icon" href=""><i class="fas fa-user-edit"></i>&nbsp;Edit Details</a>
+            </div>
+        </div>
+
+        <input type="hidden" name="tenderId" value="{tender.id}">
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <label class="col-xs-2 control-label">Date: </label>
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-calendar-week"></i></span>
+                        <input readonly type="date" class="form-control" name="dateOfTender" value="{tender.DateOfTender}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 form-group">
+                <label class="col-xs-2 control-label">Manufacturing Country: </label>
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-globe-asia"></i></span>
+                        <select class="form-control" name="manufacturingCountry" id="manufacturingCountry" required readonly>
+                            <option value="{tender.ManufacturedCountry}">{tender.ManufacturedCountry}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 form-group">
+                <label class="col-xs-2 control-label">Port of Import: </label>
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-truck-moving"></i></span>
+                        <select class="form-control" name="portOfImport" id="portOfImport" required readonly>
+                            <option value="{tender.PortOfImport}">{tender.PortOfImport}</option>
+                        </select>
+                    </div>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <label class="col-xs-2 control-label">Quantity: </label>
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input readonly="value" type="text" class="form-control" name="totalQuantity" value="{tender.TotalQuantity}" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-11 form-group">
+                <input id="addButton" style="display: none" class="btn btn-default pull-right" type="button" value="+" onclick="addItem(1)">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <input type="hidden" id="details" name="counter" value="{tenderDetails.length}">
+                <input type="hidden" class="fertilizers" value="0" name="Select a Fertilizer"/>
+                {#fertilizerList}
+                <input type="hidden" class="fertilizers" value="{id}" name="{Name}"/>
+                {/fertilizerList}
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-2">
+                            Fertilizer
+                        </th>
+                        <th class="col-xs-1">
+                            Import Price ($)
+                        </th>
+                        <th class="col-xs-1">
+                            Selling Price (NPR)
+                        </th>
+                        <th class="col-xs-1">
+                            Quantity (Metric Tons)
+                        </th>
+                        <th class="col-xs-4">
+                            Remarks
+                        </th>
+                        <th class="col-xs-1">
+                            Operation
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableData">
+                    {#tenderDetails}
+                    <tr id="row{id}">
+                        <input type="hidden" value="{id}" name="tenderDetailsId">
+                        <td>
+                            <select readonly="value" class="form-control" name="fertilizer" id="fertilizer">
+                                <option value="{FertilizerId}">{fertilizerName}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" name="importPrice" value="{ImportPrice}" disabled>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" name="sellingPrice" value="{SellingPrice}" disabled>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" name="quantity" value="{Quantity}" disabled>
+                        </td>
+                        <td>
+                            <input type="hidden" name="remarksValue" value="{Remarks}">
+                            <textarea class="form-control" rows="3" name="remarks" disabled></textarea>
+                        </td>
+                        <td>
+                            <input class="btn btn-danger pull-right" id="deleteButton" name="delete{id}" type="button" value="x" onclick="deleteItem(this)" disabled>
+                        </td>
+                    </tr>
+                    {/tenderDetails}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-9"></div>
+            <div class="col-xs-3">
+                <button type="submit"  id="updateButton" style="display:none" class="btn btn-primary"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Update
+                    Tender
+                </button>
+                &nbsp; &nbsp;
+                <a style="display: none" id="cancelButton"><button type="button" class="btn btn-danger" id="cancel"><i class="far fa-window-close"></i> Cancel</button></a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>
+{/information}
+
+<script>
+    var addButton = document.getElementById('addButton');
+    var importPrice = document.getElementsByName('importPrice');
+    var sellingPrice = document.getElementsByName('sellingPrice');
+    var quantity = document.getElementsByName('quantity');
+    var remarks = document.getElementsByName('remarks');
+    var remarksValue = document.getElementsByName('remarksValue');
+    var updateButton = document.getElementById('updateButton');
+    var cancelButton = document.getElementById('cancelButton');
+    var editButton = document.getElementById('editButton');
+
+    for(var i=0; i<remarks.length; i++)
+    {
+        remarks[i].value = remarksValue[i].value;
+    }
+
+    var count = importPrice.length;
+    editButton.addEventListener('click',function (event) {
+        event.preventDefault();
+        editButton.style.textDecoration = 'none';
+        addButton.style.display = 'block';
+        updateButton.style.display = 'inline';
+        cancelButton.style.display = 'inline';
+
+        for(var i=0; i<count; i++)
+        {
+            var tenderId = document.getElementsByName('tenderDetailsId');
+            var deleteButton = document.getElementsByName('delete'+tenderId[i].value);
+            deleteButton[0].disabled = false;
+            importPrice[i].disabled = false;
+            sellingPrice[i].disabled = false;
+            quantity[i].disabled = false;
+            remarks[i].disabled = false;
+        }
+    });
+
+    cancelButton.addEventListener('click',function(event){
+        event.preventDefault();
+        editButton.style.textDecoration = 'none';
+        addButton.style.display = 'none';
+        updateButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+        for(var i=0; i<=importPrice.length; i++)
+        {
+            if(i<count)
+            {
+                var tenderId = document.getElementsByName('tenderDetailsId');
+                var deleteButton = document.getElementsByName('delete'+tenderId[i].value);
+                deleteButton[0].disabled = true;
+                importPrice[i].disabled = true;
+                sellingPrice[i].disabled = true;
+                quantity[i].disabled = true;
+                remarks[i].disabled = true;
+            }
+            else{
+                var rowCounter = i+1;
+                var element = document.getElementById("row"+rowCounter);
+                element.parentNode.removeChild(element);
+                var counter = counterElement.getAttribute('value');
+                counter--;
+                counterElement.setAttribute('value',counter);
+            }
+        }
+
+    })
+
+</script>

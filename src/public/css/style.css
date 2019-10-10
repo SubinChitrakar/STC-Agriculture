@@ -1,0 +1,63 @@
+#sidebar{
+    position: fixed;
+    width: 270px;
+    height: 100%;
+    background: #f8f8f8;
+    color: black;
+    left: 0;
+    transition: all 500ms linear;
+}
+
+#sidebar.active{
+    left: -270px;
+}
+
+#sidebar ul a{
+    color: black;
+}
+
+#sidebar ul a li:hover{
+    background: #d4d4d4;
+    color: #3ea257;
+    font-weight: bold;
+}
+
+#sidebar ul .menu-item{
+    list-style: none;
+    padding: 15px 10px;
+
+}
+
+#sidebar .toggle-btn {
+    position: absolute;
+    left: 300px;
+    top: 12px;
+    font-size: 20px;
+}
+
+.profile{
+    background: #2c723e;
+}
+
+.profile img
+{
+    width: 100%;
+}
+
+.profile ul{
+    color: white;
+    margin: 20px 0;
+}
+
+.profile ul li{
+    list-style: none;
+}
+
+#information{
+    width: 100%;
+}
+
+h1{
+    color: #2c723e;
+}
+

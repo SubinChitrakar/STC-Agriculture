@@ -1,0 +1,87 @@
+{>"layout" /}
+
+<script src="/js/deleteAjax.js"></script>
+<style>
+    .sub-menu{
+        list-style: none;
+    }
+
+    .sub-menu a{
+        color: #2c723e;
+    }
+
+    .sub-menu a:hover{
+        color: black;
+    }
+
+    .sub-menu li{
+        display: inline;
+        margin: 0 5px;
+        font-size: 150%;
+    }
+</style>
+
+{<heading}
+<h1>Tenders</h1>
+<a class="pull-right" href="/tender/addTender">
+    <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Tender</button>
+</a>
+{/heading}
+
+
+{<information}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-1">
+                            Tender No.
+                        </th>
+                        <th class="col-xs-2">
+                            Date of Tender
+                        </th>
+                        <th class="col-xs-3">
+                            Manufacturing Country
+                        </th>
+                        <th class="col-xs-3">
+                            Port of Import
+                        </th>
+                        <th class="col-xs-2">
+                            Total Quantity
+                        </th>
+                        <th class="col-xs-1">
+                            Operation
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableData">
+                        {#tenderList}
+                        <tr onclick="goToPage(this)" id="{id}">
+                            <td>{id}</td>
+                            <td>{DateOfTender}</td>
+                            <td>{ManufacturedCountry}</td>
+                            <td>{PortOfImport}</td>
+                            <td>{TotalQuantity}</td>
+                            <td>
+                                <ul class="sub-menu pull-right">
+                                    <a onclick="deleteUtils('/tender/deleteTender/{id}', deleteTender, deleteError)"><li><i class="far fa-trash-alt"></i></li></a>
+                                </ul>
+                            </td>
+                        </tr>
+                        {/tenderList}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{/information}
+
+<script>
+    function goToPage(event)
+    {
+        window.location.href = '/tender/tenderDetails/'+event.id;
+    }
+</script>

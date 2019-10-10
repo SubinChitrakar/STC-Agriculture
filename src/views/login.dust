@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Salt Trading Corporation</title>
+
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="/css/login.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="login container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row  wrapper">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6 form-wrapper">
+                    <img src="/images/logo.png">
+                    <div>
+                        {?error}
+                        <div class="alert alert-danger" style="text-align: center">
+                            {error}
+                        </div>
+                        {/error}
+                    </div>
+                    <div>
+                        {?warning}
+                        <div class="alert alert-warning" style="text-align: center">
+                            {warning}
+                        </div>
+                        {/warning}
+                    </div>
+                    <form class="loginForm" role="form" action="/login" method="post">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-user"></i></span>
+                            <input id="username" type="text" class="form-control" name="username" placeholder="Username">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-unlock-alt"></i></span>
+                            <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <div class="clearfix submitButton">
+                            <a href="/forgotPassword">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            Login
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/bootstrap.js"></script>
+
+</body>
+</html>

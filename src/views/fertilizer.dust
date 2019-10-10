@@ -1,0 +1,109 @@
+{>"layout" /}
+
+{<heading}
+<h1>Fertilizers</h1>
+<a class="pull-right" href="/fertilizer/addFertilizer">
+    <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Fertilizer</button>
+</a>
+{/heading}
+
+<style>
+    .fertilizer-card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        height: 270px;
+        margin: 10px;
+    }
+
+    .fertilizer-card img{
+        margin: 10px 0;
+        width: 250px;
+        height: 250px;
+    }
+
+    .fertilizer-card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    b{
+        color:#2c723e;
+    }
+
+    ol li {
+        margin: auto 20%;
+    }
+
+    .sub-menu{
+        list-style: none;
+    }
+
+    .sub-menu a{
+        color: #2c723e;
+    }
+
+    .sub-menu a:hover{
+        color: black;
+    }
+
+    .sub-menu li{
+        display: inline;
+        margin: 0 5px;
+        font-size: 150%;
+    }
+
+</style>
+
+
+{<information}
+<div class="container-fluid">
+    <div class="row">
+        <div id="errorMessage" class="errorMessage" style="display:none">
+            <div class="alert alert-danger" style="text-align: center">
+                <button type="button" class="close" id="close"><span aria-hidden="true">&times;</span></button>
+                <strong>Fertilizer</strong> can not be <strong>DELETED</strong>.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                {#fertilizerList}
+                <div class="col-xs-6">
+                    <div class="row fertilizer-card">
+                        <div class="col-xs-6">
+                            <img src="{Image}" alt="Fertilizer Image">
+                        </div>
+                        <div class="col-xs-6">
+                            <h2><b>{Name}</b></h2>
+                            <p><b>Chemical Name: </b>{ChemicalName}</p>
+                            <p><b>Components: </b></p>
+                            <ol>
+                                {#Component}
+                                <li>{.ChemicalComponent}&nbsp;&nbsp; {.Percentage}%</li>
+                                {/Component}
+                            </ol>
+                            <ul class="sub-menu pull-right">
+                                <a href="/fertilizer/updateFertilizer/{id}"><li><i class="far fa-edit"></i></li></a>
+                                <a onclick="deleteUtils('/fertilizer/deleteFertilizer/{id}', deleteFertilizer, deleteError)"><li><i class="far fa-trash-alt"></i></li></a>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                {/fertilizerList}
+            </div>
+        </div>
+    </div>
+</div>
+
+{/information}
+
+
+<script src="/js/deleteAjax.js"></script>
+
+<script>
+    document.getElementById('close').onclick = function () {
+        document.getElementById('errorMessage').style.display = 'none';
+    }
+</script>

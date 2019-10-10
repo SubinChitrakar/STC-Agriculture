@@ -1,0 +1,103 @@
+{>"layout" /}
+
+<script src="/js/fertilizerComponent.js"></script>
+
+<style>
+    .component-menu{
+        margin: 1% auto;
+    }
+
+    h1 a{
+        color: black;
+    }
+</style>
+
+{<heading}
+<h1><a href="/fertilizer"><i class="fas fa-arrow-circle-left"></i></a>
+    &nbsp; &nbsp; Add Fertilizer</h1>
+{/heading}
+
+
+{<information}
+<form enctype="multipart/form-data" role="form" action="/fertilizer/submitFertilizer" method="post"
+      class="form-horizontal">
+
+    <div class="form-group ">
+        <label class="col-xs-3 control-label">Fertilizer Name: </label>
+        <div class="col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="text" class="form-control" name="fertilizerName" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label class="col-xs-3 control-label">Chemical Name: </label>
+        <div class="col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="text" class="form-control" name="chemicalName" required>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="componentId" name="counter" value="1">
+
+    <div id="components">
+        <label class="col-xs-3 control-label">Components </label>
+        <div class="col-xs-6 control-label">
+            <input class="btn btn-default" type="button" value="+" onclick="addItem(1)">
+        </div>
+        <div class="form-group col-xs-12 component-menu" id="index1">
+            <div class="col-xs-3">
+            </div>
+            <div class="col-xs-8">
+                <div class="col-xs-5">
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <select class="form-control" name="component" id="component" required>
+                            <option value="Select">Select a Component</option>
+                            <option value="Nitrogen">Nitrogen</option>
+                            <option value="Phosphorus">Phosphorus</option>
+                            <option value="Potassium">Potassium</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-percentage"></i></span>
+                        <input type="number" class="form-control" name="percentage" min="1" placeholder="Percentage" required>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <input class="btn btn-danger" name="delete1" type="button" value="x" onclick="deleteItem(this)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="clear:both"></div>
+
+    <label class="col-xs-3 control-label">Image: </label>
+    <div class="col-xs-6">
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+            <span class="btn btn-default btn-file"><input type="file" id="image" name="image" accept="image/*"></span>
+            <span class="fileinput-filename"></span>
+        </div>
+    </div>
+
+    <div style="clear:both"></div>
+
+
+    <div class="form-group" style="margin: 3% auto;">
+        <div class="col-xs-9 col-xs-offset-3">
+            <button type="submit" class="btn btn-primary" id="addFertilizer"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Add Fertilizer
+            </button>
+            &nbsp; &nbsp;
+            <button type="reset" class="btn btn-warning"><i class="fas fa-sync-alt"></i>&nbsp;&nbsp;Clear
+            </button>
+        </div>
+    </div>
+</form>
+{/information}

@@ -1,0 +1,33 @@
+{>"layout" /}
+
+{<heading}
+<h1><a href="/smartTips"><i class="fas fa-arrow-circle-left"></i></a>
+    &nbsp; &nbsp; Add Smart Tip</h1>
+{/heading}
+
+<style>
+    .tips-heading {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 20px 0;
+        padding: 30px 20px;
+    }
+</style>
+
+{<information}
+<form class="form-horizontal" action="/smartTips/submitTips" method="post">
+    <input type="text" class="form-control tips-heading" name="title" placeholder="Heading" required>
+
+    <textarea rows="10" class="form-control" name="content" placeholder="Content"></textarea>
+
+    <div class="form-group" style="margin: 3% auto;">
+        <div class="pull-right">
+            <button type="submit" class="btn btn-primary" id="addTips"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Add Tip
+            </button>
+            &nbsp; &nbsp;
+            <button type="reset" class="btn btn-warning"><i class="fas fa-sync-alt"></i>&nbsp;&nbsp;Clear
+            </button>
+        </div>
+    </div>
+</form>
+{/information}

@@ -1,0 +1,114 @@
+{>"layout" /}
+
+<style>
+    h1 a {
+        color: black;
+    }
+</style>
+
+{<heading}
+<h1><a href="/distributor"><i class="fas fa-arrow-circle-left"></i></a>
+    &nbsp; &nbsp; Add Distributor</h1>
+{/heading}
+
+
+{<information}
+<form role="form" action="/distributor/submitDistributor" method="post"
+      class="form-horizontal">
+
+    <div class="form-group ">
+        <label class="col-xs-3 control-label">Company Name: </label>
+        <div class="col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="text" class="form-control" name="companyName" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label class="col-xs-3 control-label">Proprietor Name: </label>
+        <div class="col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="text" class="form-control" name="proprietorName" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label class="col-xs-3 control-label">Contact No.: </label>
+        <div class="col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="text" class="form-control" name="contactNo" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Email: </label>
+        <div class="col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label class="col-xs-3 control-label">Address: </label>
+        <div class="col-xs-6">
+            <div class="input-group">
+                <img src="/images/Maps.png" width="500px">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <div class="col-xs-3"></div>
+        <div class="col-xs-3">
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="text" class="form-control" placeholder="Longitude" name="longitude" required>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="text" class="form-control" placeholder="Latitude" name="latitude" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label class="col-xs-3 control-label">Documents: </label>
+        <div class="col-xs-6">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="PAN"/> PAN
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="citizenship"/> Citizenship
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="clear:both"></div>
+
+
+    <div class="form-group" style="margin: 3% auto;">
+        <div class="col-xs-9 col-xs-offset-3">
+            <button type="submit" class="btn btn-primary" id="addDistributor"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Add Distributor
+            </button>
+            &nbsp; &nbsp;
+            <button type="reset" class="btn btn-warning"><i class="fas fa-sync-alt"></i>&nbsp;&nbsp;Clear
+            </button>
+        </div>
+    </div>
+</form>
+{/information}
