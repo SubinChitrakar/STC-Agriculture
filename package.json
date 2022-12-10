@@ -19,7 +19,7 @@
     "dust": "^0.3.0",
     "dustjs-helpers": "latest",
     "dustjs-linkedin": "latest",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-session": "^1.15.6",
     "http-server": "^0.11.1",
     "knex": "^0.16.5",
